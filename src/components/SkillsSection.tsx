@@ -13,6 +13,7 @@ const skills = [
       "TypeScript",
       "React",
       "Angular",
+      "Tailwind CSS"
     ],
   },
   {
