@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { href: "#about", label: "The Legend" },
+  { href: "#experience", label: "Chronicles" },
   { href: "#skills", label: "Arsenal" },
   { href: "#projects", label: "Conquests" },
   { href: "#contact", label: "Send Raven" },
@@ -31,9 +33,9 @@ const Navigation = () => {
     >
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a href="#" className="font-display text-xl text-gradient-gold tracking-wider">
-            YN
+          {/* Logo - Replace with your initials */}
+          <a href="#" className="font-display text-xl text-gradient-gold tracking-wider" title="Your Name - Replace in Navigation.tsx">
+            ⚔ Ash
           </a>
 
           {/* Desktop Navigation */}
@@ -47,16 +49,20 @@ const Navigation = () => {
                 {link.label}
               </a>
             ))}
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-foreground hover:text-primary transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-4">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-foreground hover:text-primary transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}

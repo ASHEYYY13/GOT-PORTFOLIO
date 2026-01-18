@@ -1,8 +1,16 @@
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBg2 from "@/assets/me and throne.png";
+import heroBg3 from "@/assets/bgimage.png";
 import { ChevronDown } from "lucide-react";
+import { useRef } from "react";
+import useParallax from "@/hooks/useParallax";
 
 const HeroSection = () => {
+    const bgRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  
+  const bgOffset = useParallax(bgRef, { speed: 0.2, direction: "down" });
+  const contentOffset = useParallax(contentRef, { speed: 0.1, direction: "up" });
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -11,14 +19,22 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg2})` }}
+          ref={bgRef}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat will-change-transform"
+        style={{ 
+          backgroundImage: `url(${heroBg3})`,
+          transform: `translateY(${bgOffset}px) scale(1.1)`,
+        }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">
+      <div 
+        ref={contentRef}
+        className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in will-change-transform"
+        style={{ transform: `translateY(${contentOffset}px)` }}
+      >
         {/* Ornate top decoration */}
         <div className="flex justify-center mb-8">
           <div className="w-32 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />

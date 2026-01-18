@@ -1,43 +1,77 @@
 import { MapPin, ExternalLink, Github } from "lucide-react";
 
+// const projects = [
+//   {
+//     title: "The Iron Framework",
+//     region: "The North",
+//     description: "A mighty React component library forged from a thousand libraries, designed to rule all user interfaces in the realm.",
+//     tech: ["React", "TypeScript", "Storybook"],
+//     github: "#",
+//     live: "#",
+//     status: "Conquered",
+//   },
+//   {
+//     title: "Dragon API",
+//     region: "Valyria",
+//     description: "A fire-breathing REST API that serves data faster than dragon fire spreads across a battlefield.",
+//     tech: ["Node.js", "GraphQL", "PostgreSQL"],
+//     github: "#",
+//     live: "#",
+//     status: "Conquered",
+//   },
+//   {
+//     title: "Raven Messenger",
+//     region: "King's Landing",
+//     description: "Real-time messaging application that delivers messages swifter than the fastest raven in the Seven Kingdoms.",
+//     tech: ["React Native", "Socket.io", "Redis"],
+//     github: "#",
+//     live: "#",
+//     status: "In Progress",
+//   },
+//   {
+//     title: "The Wall Dashboard",
+//     region: "Castle Black",
+//     description: "An analytics fortress that monitors and protects your data from wildlings and bugs alike.",
+//     tech: ["Next.js", "D3.js", "AWS"],
+//     github: "#",
+//     live: "#",
+//     status: "Conquered",
+//   },
+// ];
+
 const projects = [
   {
-    title: "The Iron Framework",
-    region: "The North",
-    description: "A mighty React component library forged from a thousand libraries, designed to rule all user interfaces in the realm.",
-    tech: ["React", "TypeScript", "Storybook"],
-    github: "#",
+    title: "Hybrid Malware Detection System",
+    region: "Cyber Realm",
+    description:
+      "A hybrid malware detection system combining machine learning and deep learning techniques to accurately identify malicious files using static, dynamic, and CNN-based image analysis.",
+    tech: ["Python", "Scikit-learn", "PyTorch", "Pandas", "NumPy"],
+    github: "https://github.com/ASHEYYY13/Hybrid-malware-detection",
     live: "#",
     status: "Conquered",
   },
   {
-    title: "Dragon API",
-    region: "Valyria",
-    description: "A fire-breathing REST API that serves data faster than dragon fire spreads across a battlefield.",
-    tech: ["Node.js", "GraphQL", "PostgreSQL"],
-    github: "#",
+    title: "Smart Email Reply Generator",
+    region: "AI Domain",
+    description:
+      "An AI-powered email response generator that creates professional, casual, and friendly replies using Gemini AI, integrated as both a web app and browser extension.",
+    tech: ["React", "Spring Boot", "Gemini AI", "Bootstrap"],
+    github: "https://github.com/ASHEYYY13/Smart-Email-Generator-With-Browser-Extension",
     live: "#",
     status: "Conquered",
   },
   {
-    title: "Raven Messenger",
-    region: "King's Landing",
-    description: "Real-time messaging application that delivers messages swifter than the fastest raven in the Seven Kingdoms.",
-    tech: ["React Native", "Socket.io", "Redis"],
-    github: "#",
-    live: "#",
-    status: "In Progress",
-  },
-  {
-    title: "The Wall Dashboard",
-    region: "Castle Black",
-    description: "An analytics fortress that monitors and protects your data from wildlings and bugs alike.",
-    tech: ["Next.js", "D3.js", "AWS"],
-    github: "#",
+    title: "Cook’s Haven – Homemade Food Ordering Platform",
+    region: "Local Marketplace",
+    description:
+      "A full-stack web application that connects home cooks with customers, enabling users to browse, order, and manage homemade food securely and efficiently.",
+    tech: ["HTML", "CSS", "JavaScript", "Spring Boot", "MySQL"],
+    github: "https://github.com/arunkumarbtech/Cook-s-Haven",
     live: "#",
     status: "Conquered",
   },
 ];
+
 
 const ProjectsSection = () => {
   return (
