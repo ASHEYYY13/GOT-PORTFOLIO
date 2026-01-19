@@ -15,12 +15,8 @@ const ContactSection = ({ onDispatchRaven }: ContactSectionProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Trigger raven animation
+    // Trigger raven animation - toast will be shown after raven completes
     onDispatchRaven?.();
-    // Show success message
-    toast.success("Your raven has been dispatched!", {
-      description: "The message flies swift across the realm.",
-    });
     // Reset form
     setFormData({ name: '', email: '', message: '' });
     console.log('Raven sent:', formData);

@@ -268,4 +268,19 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
   }
+
+   @keyframes feather-fall {
+    0% { 
+      opacity: 0.6;
+      transform: translateY(0) rotate(45deg);
+    }
+    100% { 
+      opacity: 0;
+      transform: translateY(100px) rotate(135deg) translateX(30px);
+    }
+  }
+
+  .animate-feather-fall {
+    animation: feather-fall 2s ease-out forwards;
+  }
 }

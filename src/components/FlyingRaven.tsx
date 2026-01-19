@@ -1,43 +1,105 @@
 import { useEffect, useState } from "react";
-import { Bird } from "lucide-react";
 
 interface FlyingRavenProps {
   isFlying: boolean;
   onComplete: () => void;
 }
 
+// Custom SVG raven silhouette for a realistic flying look
+const RavenSVG = ({ wingUp }: { wingUp: boolean }) => (
+  <svg 
+    viewBox="0 0 100 60" 
+    className="w-20 h-12"
+    style={{ 
+      filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.4))',
+    }}
+  >
+    {/* Body */}
+    <ellipse cx="50" cy="35" rx="20" ry="12" className="fill-foreground" />
+    
+    {/* Head */}
+    <circle cx="75" cy="30" r="10" className="fill-foreground" />
+    
+    {/* Beak */}
+    <polygon points="85,30 95,32 85,34" className="fill-primary" />
+    
+    {/* Eye */}
+    <circle cx="78" cy="28" r="2" className="fill-primary" />
+    
+    {/* Tail */}
+    <polygon points="25,30 10,25 10,35 15,40 25,38" className="fill-foreground" />
+    
+    {/* Left Wing */}
+    <path 
+      d={wingUp 
+        ? "M 35 35 Q 20 5, 5 10 Q 15 20, 30 30 Z" 
+        : "M 35 35 Q 20 45, 5 50 Q 15 45, 30 38 Z"
+      }
+      className="fill-foreground"
+      style={{ transition: 'd 0.15s ease-in-out' }}
+    />
+    
+    {/* Right Wing */}
+    <path 
+      d={wingUp 
+        ? "M 55 35 Q 40 5, 25 10 Q 35 20, 50 30 Z" 
+        : "M 55 35 Q 40 45, 25 50 Q 35 45, 50 38 Z"
+      }
+      className="fill-foreground"
+      style={{ transition: 'd 0.15s ease-in-out' }}
+    />
+  </svg>
+);
+
 const FlyingRaven = ({ isFlying, onComplete }: FlyingRavenProps) => {
-  const [position, setPosition] = useState({ x: 50, y: 100 });
-  const [rotation, setRotation] = useState(0);
+  const [position, setPosition] = useState({ x: -100, y: 0 });
+  const [wingUp, setWingUp] = useState(false);
   const [opacity, setOpacity] = useState(1);
-  const [wingFlap, setWingFlap] = useState(false);
 
   useEffect(() => {
-    if (!isFlying) return;
+    if (!isFlying) {
+      // Reset position when not flying
+      setPosition({ x: -100, y: window.innerHeight });
+      return;
+    }
 
-    // Wing flapping animation
+    // Start from bottom-left
+    setPosition({ x: -50, y: window.innerHeight - 100 });
+    setOpacity(1);
+
+    // Wing flapping animation - faster for realistic flight
     const wingInterval = setInterval(() => {
-      setWingFlap(prev => !prev);
-    }, 150);
+      setWingUp(prev => !prev);
+    }, 120);
 
-    // Flight path animation
+    // Flight path animation - 6 seconds
     const startTime = Date.now();
-    const duration = 3000;
+    const duration = 6000;
     
     const animate = () => {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Curved path across the screen
-      const x = 50 + progress * (window.innerWidth + 100);
-      const y = 100 - Math.sin(progress * Math.PI) * 200 - progress * 50;
+      // Smooth diagonal path from bottom-left to top-right
+      const startX = -50;
+      const startY = window.innerHeight - 100;
+      const endX = window.innerWidth + 100;
+      const endY = -50;
       
-      // Rotation follows the path
-      const angle = Math.atan2(-200 * Math.cos(progress * Math.PI) - 50, window.innerWidth + 100) * (180 / Math.PI);
+      // Add slight wave motion for natural flight
+      const waveAmplitude = 30;
+      const waveFrequency = 3;
+      const wave = Math.sin(progress * Math.PI * waveFrequency) * waveAmplitude;
+      
+      const x = startX + (endX - startX) * progress;
+      const y = startY + (endY - startY) * progress + wave;
       
       setPosition({ x, y });
-      setRotation(angle - 90);
-      setOpacity(progress > 0.8 ? 1 - (progress - 0.8) / 0.2 : 1);
+      
+      // Fade out in the last 15% of the journey
+      if (progress > 0.85) {
+        setOpacity(1 - (progress - 0.85) / 0.15);
+      }
 
       if (progress < 1) {
         requestAnimationFrame(animate);
@@ -56,68 +118,67 @@ const FlyingRaven = ({ isFlying, onComplete }: FlyingRavenProps) => {
 
   if (!isFlying) return null;
 
+  // Calculate angle for diagonal flight (bottom-left to top-right = roughly -35 degrees)
+  const flightAngle = -35;
+
   return (
     <div className="fixed inset-0 pointer-events-none z-[60] overflow-hidden">
-      {/* Trail effect */}
-      {[...Array(5)].map((_, i) => (
+      {/* Trail effect - ghostly ravens following */}
+      {[...Array(4)].map((_, i) => (
         <div
           key={i}
           className="absolute"
           style={{
-            left: position.x - (i + 1) * 30,
-            top: position.y + (i + 1) * 5,
-            opacity: opacity * (0.5 - i * 0.1),
-            transform: `rotate(${rotation}deg) scale(${1 - i * 0.15})`,
-            transition: 'all 0.1s ease-out',
+            left: position.x - (i + 1) * 40,
+            top: position.y + (i + 1) * 25,
+            opacity: opacity * (0.3 - i * 0.07),
+            transform: `rotate(${flightAngle}deg) scale(${0.8 - i * 0.15})`,
+            transition: 'left 0.15s ease-out, top 0.15s ease-out',
           }}
         >
-          <Bird className="w-6 h-6 text-primary/30" />
+          <RavenSVG wingUp={!wingUp} />
         </div>
       ))}
 
       {/* Main raven */}
       <div
-        className="absolute transition-transform"
+        className="absolute"
         style={{
           left: position.x,
           top: position.y,
           opacity,
-          transform: `rotate(${rotation}deg) scaleY(${wingFlap ? 1 : 0.7})`,
+          transform: `rotate(${flightAngle}deg)`,
         }}
       >
-        <div className="relative">
-          {/* Raven body */}
-          <Bird 
-            className={`w-12 h-12 text-foreground drop-shadow-[0_0_10px_rgba(212,175,55,0.5)] transition-transform duration-150 ${
-              wingFlap ? 'scale-y-110' : 'scale-y-90'
-            }`}
-          />
-          
-          {/* Wing glow effect */}
-          <div 
-            className="absolute inset-0 blur-md"
-            style={{
-              background: 'radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%)',
-            }}
-          />
-        </div>
+        <RavenSVG wingUp={wingUp} />
+        
+        {/* Glow effect behind the raven */}
+        <div 
+          className="absolute inset-0 -z-10 blur-xl"
+          style={{
+            background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 60%)',
+            transform: 'scale(2)',
+          }}
+        />
       </div>
 
-      {/* Feathers falling */}
-      {isFlying && [...Array(8)].map((_, i) => (
+      {/* Feathers falling along the path */}
+      {isFlying && [...Array(6)].map((_, i) => (
         <div
           key={`feather-${i}`}
-          className="absolute animate-fall"
+          className="absolute animate-feather-fall"
           style={{
-            left: position.x - Math.random() * 100,
-            top: position.y + Math.random() * 50,
-            animationDelay: `${i * 0.3}s`,
+            left: position.x - 20 - Math.random() * 60,
+            top: position.y + 30 + Math.random() * 40,
+            animationDelay: `${i * 0.4}s`,
+            opacity: opacity * 0.6,
           }}
         >
           <div 
-            className="w-2 h-4 bg-gradient-to-b from-foreground/40 to-transparent rotate-45"
+            className="w-2 h-5 bg-gradient-to-b from-foreground/50 to-transparent"
             style={{
-              clipPath: 'ellipse(50% 100% at 50% 0%)',
+              clipPath: 'ellipse(40% 100% at 50% 0%)',
+              transform: `rotate(${45 + Math.random() * 30}deg)`,
             }}
           />
         </div>

@@ -4,6 +4,8 @@ import heroBg3 from "@/assets/bgimage.png";
 import { ChevronDown } from "lucide-react";
 import { useRef } from "react";
 import useParallax from "@/hooks/useParallax";
+import resume from "@/assets/Aswin Salomon Raja 2025.pdf";
+
 
 const HeroSection = () => {
     const bgRef = useRef<HTMLDivElement>(null);
@@ -32,7 +34,7 @@ const HeroSection = () => {
       {/* Content */}
       <div 
         ref={contentRef}
-        className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in will-change-transform"
+        className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in will-change-transform pt-20 md:pt-28"
         style={{ transform: `translateY(${contentOffset}px)` }}
       >
         {/* Ornate top decoration */}
@@ -71,10 +73,11 @@ const HeroSection = () => {
             </span>
           </a>
           <a 
-            href="#contact" 
+            href={resume}
+  download="Aswin_Salomon_Raja_Resume.pdf"
             className="px-8 py-4 font-display text-sm tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors duration-300"
           >
-            Send a Raven
+            Unroll the Scroll
           </a>
         </div>
 

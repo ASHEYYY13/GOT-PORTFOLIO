@@ -147,13 +147,13 @@ const ProjectsSection = () => {
                     <Github className="w-4 h-4" />
                     <span>View Scrolls</span>
                   </a>
-                  <a
+                  {/* <a
                     href={project.live}
                     className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-display tracking-wider"
                   >
                     <ExternalLink className="w-4 h-4" />
                     <span>Visit Kingdom</span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
 

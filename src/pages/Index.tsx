@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
+import { toast } from "sonner";
 import ExperienceSection from "@/components/ExperienceSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
@@ -23,8 +24,13 @@ const Index = () => {
     setRavenFlying(true);
   }, []);
 
-  const handleRavenComplete = useCallback(() => {
+   const handleRavenComplete = useCallback(() => {
     setRavenFlying(false);
+    // Show toast in top-right where raven disappears
+    toast.success("Your raven has been dispatched!", {
+      description: "The message flies swift across the realm.",
+      position: "top-right",
+    });
   }, []);
 
   return (
