@@ -1,6 +1,7 @@
-import { Bird, Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { Bird, Mail, Github, Linkedin, Twitter, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { FaWhatsapp } from "react-icons/fa";
 
 interface ContactSectionProps {
   onDispatchRaven?: () => void;
@@ -30,7 +31,10 @@ const ContactSection = ({ onDispatchRaven }: ContactSectionProps) => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 bg-gradient-to-b from-background via-muted/20 to-background">
+    <section
+      id="contact"
+      className="py-24 px-6 bg-gradient-to-b from-background via-muted/20 to-background"
+    >
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -42,7 +46,7 @@ const ContactSection = ({ onDispatchRaven }: ContactSectionProps) => {
           </h2>
           <div className="divider-ornate w-48 mx-auto mb-6" />
           <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-            Should you wish to forge an alliance or discuss matters of code, 
+            Should you wish to forge an alliance or discuss matters of code,
             dispatch your message. The ravens fly swift across the realm.
           </p>
         </div>
@@ -120,32 +124,34 @@ const ContactSection = ({ onDispatchRaven }: ContactSectionProps) => {
           </p>
           <div className="flex justify-center gap-6">
             <a
-              href="#"
+              href="mailto:aswinsalomon4321@gmail.com"
               className="w-12 h-12 border border-border hover:border-primary/50 flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 hover:glow-gold"
               aria-label="Email"
             >
               <Mail className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://github.com/ASHEYYY13"
               className="w-12 h-12 border border-border hover:border-primary/50 flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 hover:glow-gold"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/aswinsalomon/"
               className="w-12 h-12 border border-border hover:border-primary/50 flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 hover:glow-gold"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://wa.me/918610091579?text=I%20have%20a%20quest%20for%20you."
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-12 h-12 border border-border hover:border-primary/50 flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 hover:glow-gold"
-              aria-label="Twitter"
+              aria-label="WhatsApp"
             >
-              <Twitter className="w-5 h-5" />
+             <FaWhatsapp className="w-5 h-5" />
             </a>
           </div>
         </div>
